@@ -1,0 +1,23 @@
+{
+  "name": "csgo-price-query",
+  "version": "0.1.0",
+  "description": "A simple route to get CS:GO market prices",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SkinsBazaar/csgo-price-query.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SkinsBazaar/csgo-price-query/issues"
+  },
+  "homepage": "https://github.com/SkinsBazaar/csgo-price-query#readme",
+  "dependencies": {
+    "csgo-market": "^1.0.1",
+    "express": "^4.13.1"
+  }
+}
