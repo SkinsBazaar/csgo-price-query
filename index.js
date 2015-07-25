@@ -20,7 +20,7 @@ app.get('/', function (req, res) {
     if (!error && response.statusCode === 200) {
       return res.status(200).send(JSON.parse(body));
     } else {
-      return res.status(400).end();
+      return res.status(400).send(error);
     }
   });
 
