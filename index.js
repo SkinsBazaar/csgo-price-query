@@ -12,11 +12,11 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  if (!req.body.weapon || !req.body.skin || !req.body.wear || !req.body.stattrak) {
+  if (!req.query || !req.query.weapon || !req.query.skin || !req.query.wear || !req.query.stattrak) {
     return res.status(400).send('Missing parameter');
   }
 
-  csgomarket.getSinglePrice(req.body.weapon, req.body.skin, req.body.wear, req.body.stattrak, function (err, data) {
+  csgomarket.getSinglePrice(req.query.weapon, req.query.skin, req.query.wear, req.query.stattrak, function (err, data) {
     if (err) { return res.status(400).send(err); }
     res.status(200).send(data);
   });
