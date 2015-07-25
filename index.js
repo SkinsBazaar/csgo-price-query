@@ -1,7 +1,7 @@
 'use strict';
 
+var request = require('request');
 var express = require('express');
-var csgomarket = require('csgo-market');
 
 var app = express();
 
@@ -12,14 +12,18 @@ app.use(function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-  if (!req.query || !req.query.weapon || !req.query.skin || !req.query.wear || !req.query.stattrak) {
+  if (!req.query || !req.query.hash) {
     return res.status(400).send('Missing parameter');
   }
 
-  csgomarket.getSinglePrice(req.query.weapon, req.query.skin, req.query.wear, req.query.stattrak, function (err, data) {
-    if (err) { return res.status(400).send(err); }
-    res.status(200).send(data);
+  request('http://steamcommunity.com/market/priceoverview/?country=US&currency=dollar&appid=730&market_hash_name=' + req.query.hash, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      return res.status(200).send(JSON.parse(body));
+    } else {
+      return res.status(400).end();
+    }
   });
+
 });
 
 var server = app.listen(process.env.PORT || 3000, function () {
