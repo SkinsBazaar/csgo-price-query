@@ -16,9 +16,23 @@ app.get('/', function (req, res) {
     return res.status(400).send('Missing parameter');
   }
 
-  request('http://steamcommunity.com/market/priceoverview/?country=US&currency=dollar&appid=730&market_hash_name=' + req.query.hash, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      return res.status(200).send(JSON.parse(body));
+  request({
+    uri: 'http://steamcommunity.com/market/priceoverview',
+    json: true,
+    qs: {
+      currency: 'dollar',
+      appid: 730,
+      market_hash_name: req.query.hash
+    }
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200 && body && body.success === true) {
+
+      return res.status(200).send({
+        volume: body.volume,
+        lowest: body.lowest_price.substr(5),
+        median: body.median_price.substr(5)
+      });
+
     } else {
       return res.status(400).send(error);
     }
