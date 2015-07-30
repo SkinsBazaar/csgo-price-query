@@ -29,8 +29,8 @@ app.get('/', function (req, res) {
 
       return res.status(200).send({
         volume: body.volume,
-        lowest: body.lowest_price.substr(5),
-        median: body.median_price.substr(5)
+        lowest: body.lowest_price.replace(/\$/g,''),
+        median: body.median_price.replace(/\$/g,'')
       });
 
     } else {
@@ -41,5 +41,5 @@ app.get('/', function (req, res) {
 });
 
 var server = app.listen(process.env.PORT || 3000, function () {
-  console.log('[CS:GO Market Prices] ready');
+  console.log('[CS:GO Market Prices] ready on port', server.address().port);
 });
