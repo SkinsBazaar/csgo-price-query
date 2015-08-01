@@ -29,8 +29,8 @@ app.get('/', function (req, res) {
 
       return res.status(200).send({
         volume: body.volume,
-        lowest: body.lowest_price.replace(/\$/g,''),
-        median: body.median_price.replace(/\$/g,'')
+        lowest: body.lowest_price ? body.lowest_price.replace(/\$/g,'') : 'none',
+        median: body.median_price ? body.median_price.replace(/\$/g,'') : 'none'
       });
 
     } else {
